@@ -20,18 +20,21 @@ class Item
     * @var string $item
     *
     * @ORM\Column(name="item", type="string", length=255)
+    * @Assert\NotBlank()
     */
     private $item;
     /**
     * @var integer $codigo
     *
     * @ORM\Column(name="codigo", type="integer")
+    * @Assert\NotBlank()
     */
     private $codigo;
     /**
     * @var float $precio
     *
     * @ORM\Column(name="precio", type="float")
+    * @Assert\Min(0)
     */
     private $precio;
     /**
@@ -44,12 +47,14 @@ class Item
     * @var string $slug
     *
     * @ORM\Column(name="slug", type="string", length=255)
+    * @Assert\NotBlank()
     */
     private $slug;
     /**
     * @var boolean $habilitado
     *
     * @ORM\Column(name="habilitado", type="boolean")
+    * @Assert\NotBlank()
     */
     private $habilitado;
     /**
@@ -68,31 +73,49 @@ class Item
     * @var datetime $created
     *
     * @ORM\Column(name="created", type="datetime")
+    * @Assert\DateTime
     */
     private $created;
     /**
     * @var string $created_by
     *
     * @ORM\Column(name="created_by", type="string", length=255)
+    * @Assert\NotBlank()
     */
     private $created_by;
     /**
     * @var datetime $updated
     *
     * @ORM\Column(name="updated", type="datetime")
+    * @Assert\DateTime
     */
     private $updated;
     /**
     * @var string $updated_by
     *
     * @ORM\Column(name="updated_by", type="string", length=255)
+    * @Assert\NotBlank()
     */
     private $updated_by;
 
     /**
+    * @Assert\True(message = "La fecha de expiración debe ser mayor a la fecha de creación")
+    */
+    public function isFechaExpiraValida()
+    {
+        $retorno = false;
+
+        if ($this->fecha_expira > $this->created){
+            $retorno = true;
+        }
+
+        return $retorno;
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -112,7 +135,7 @@ class Item
     /**
      * Get item
      *
-     * @return string 
+     * @return string
      */
     public function getItem()
     {
@@ -132,7 +155,7 @@ class Item
     /**
      * Get codigo
      *
-     * @return integer 
+     * @return integer
      */
     public function getCodigo()
     {
@@ -152,7 +175,7 @@ class Item
     /**
      * Get precio
      *
-     * @return float 
+     * @return float
      */
     public function getPrecio()
     {
@@ -172,7 +195,7 @@ class Item
     /**
      * Get foto
      *
-     * @return string 
+     * @return string
      */
     public function getFoto()
     {
@@ -192,7 +215,7 @@ class Item
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -212,7 +235,7 @@ class Item
     /**
      * Get habilitado
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getHabilitado()
     {
@@ -232,7 +255,7 @@ class Item
     /**
      * Get fecha_expira
      *
-     * @return date 
+     * @return date
      */
     public function getFechaExpira()
     {
@@ -252,7 +275,7 @@ class Item
     /**
      * Get hora_expira
      *
-     * @return time 
+     * @return time
      */
     public function getHoraExpira()
     {
@@ -272,7 +295,7 @@ class Item
     /**
      * Get created
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreated()
     {
@@ -292,7 +315,7 @@ class Item
     /**
      * Get created_by
      *
-     * @return string 
+     * @return string
      */
     public function getCreatedBy()
     {
@@ -312,7 +335,7 @@ class Item
     /**
      * Get updated
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdated()
     {
@@ -332,7 +355,7 @@ class Item
     /**
      * Get updated_by
      *
-     * @return string 
+     * @return string
      */
     public function getUpdatedBy()
     {
